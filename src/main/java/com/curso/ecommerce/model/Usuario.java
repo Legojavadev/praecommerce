@@ -1,7 +1,22 @@
+/*Duiagrama conceptual integran Usuario, Productos, DetalleOrden, Orden*/
 package com.curso.ecommerce.model;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+@Entity /*Aqui iniciamos dicinedo q sta es una ENTIDAD la tabla usuario*/
+@Table(name = "usuarios") /*Es recomendable que las tablas vayan en plural*/
 public class Usuario {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) /*Esta notacion permite q Id sea autoincrement*/
 	private Integer id;
 	private String nombre;
 	private String username;
@@ -10,6 +25,15 @@ public class Usuario {
 	private String telefono;
 	private String tipo;
 	private String password;
+	
+	/*Aqui vamos anotar con JPA  a este atributo vamos a decir que esta relacion es de uno a muchos
+	 * y que va estar mapeada por el campo usuario*/
+	@OneToMany(mappedBy = "usuario")	
+	/*creamos un atributo de esta clase y le decimos q nos devuelva una lista de productos*/
+	private List<Producto> productos;
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Orden> ordenes;
 	
 	
 	public Usuario() {
@@ -79,10 +103,27 @@ public class Usuario {
 		this.password = password;
 	}
 	
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
 	
+	public List<Orden> getOrdenes() {
+		return ordenes;
+	}
+
+
+	public void setOrdenes(List<Orden> ordenes) {
+		this.ordenes = ordenes;
+	}
+
+
 	//to string lo que hace es retornarme todos los campos de la clase como un solo string
-		//por que es importante imprimir por consola ya que tiene todo ese objeto actualmente
-	
+	//por que es importante imprimir por consola ya que tiene todo ese objeto actualmente
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", username=" + username + ", email=" + email

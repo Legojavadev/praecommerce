@@ -2,7 +2,20 @@ package com.curso.ecommerce.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "ordenes")
 public class Orden {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//atributos
 	private Integer id;
 	private String numero;
@@ -10,6 +23,13 @@ public class Orden {
 	private Date fechaRecibida;
 	
 	private double total;
+	
+	/*creamos un atributo de tipo Usuario que esta relacionado tabla usuario con tabla orden solo se anota asi por que en clase usuarios esta mapeado*/
+	@ManyToOne
+	private Usuario usuario;
+	
+	@OneToOne(mappedBy = "orden")
+	private DetalleOrden detalle;
 	
 	//constructor vacio
 	public Orden() {
@@ -67,6 +87,23 @@ public class Orden {
 		this.total = total;
 	}
 	
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public DetalleOrden getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(DetalleOrden detalle) {
+		this.detalle = detalle;
+	}
+
 	////to string lo que hace es retornarme todos los campos de la clase como un solo string
 	//por que es importante imprimir por consola ya que tiene todo ese objeto actualmente
 	@Override

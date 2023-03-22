@@ -2,9 +2,10 @@ package com.curso.ecommerce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+
+/*(exclude = DataSourceAutoConfiguration.class) SE excluye de esta manera para ejecutar si base dato*/
+@SpringBootApplication
 public class PraecommerceApplication {
 
 	public static void main(String[] args) {
